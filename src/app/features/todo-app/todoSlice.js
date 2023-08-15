@@ -5,10 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const todoSlice = createSlice({
     name:"todo",
     initialState:{
-todo :[{
-    id:1,
-    task:"Go to the market"
-}]
+todo :[]
     },
     reducers:{
 addTodo:(state, action)=>{
@@ -16,8 +13,8 @@ addTodo:(state, action)=>{
 },
 
 deleteTodo:(state, action)=>{
-return state.todo.filter((task)=>{
-    task.id!== action.payload;
+state.todo = state.todo.filter((todo)=>{
+    return todo.id !== action.payload
 })
 
 }
