@@ -20,8 +20,8 @@ const amountHandeler = (e)=>{
 }
 
     return<>
-    <Container className="d-flex justify-content-center m-2 ">
-    <Card className="text-center w-50">
+   
+    <Card className="text-center ">
       <Card.Header>Counter App</Card.Header>
       <Card.Body>
         <Card.Title>{count}</Card.Title>
@@ -49,7 +49,7 @@ const amountHandeler = (e)=>{
     
     </Card>
 
-    </Container>
+  
     </>
 }
 

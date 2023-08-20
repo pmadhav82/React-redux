@@ -26,7 +26,7 @@ let taskObject = {
 
     return<>
     <Container className="d-flex flex-column justify-content-center align-items-center m-2 ">
-        <Form  className="m-2 w-50">
+        <Form  className="m-2 ">
             <Card>
 <Card.Body>
     <Form.Group className="m-2" controlId="formBasicPassword">
@@ -48,7 +48,7 @@ let taskObject = {
 {todoList.length>0?<>
 
     {todoList.map((todo)=>{
-       return <Card key={todo.id} className="text-center w-50 m-1">
+       return <Card key={todo.id} className="text-center  m-1">
     <Card.Body>
    <Card.Text>
     {todo.task}
@@ -61,7 +61,7 @@ let taskObject = {
     </Card.Body>
         </Card>
     })}
-</>:<Card className="w-50">
+</>:<Card >
     <Card.Body>
         You do not have any to-do list.
       
