@@ -174,6 +174,182 @@ const dispatch = useDispatch();
 
 ```
 
+
+## `createAsyncThunk`
+`createAsyncThunk` allows to write async logic that interacts with the store. Let's implement `createAsyncThunk`. For that create a folder `fetchPost` inside `features` folder and create a file name `fetchPostSlice.js`.
+
+```
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+const initialState = {
+posts:null,
+status:"idel",
+error:null
+
+}
+const BASE_URL = "https://www.pblog.online/api/pmadhav279@gmail.com";
+
+export const fetchPost = createAsyncThunk("fetch/post", async ()=>{
+try{
+const res = await fetch(BASE_URL);
+if(!res.ok) throw Error("Failed to fetch post");
+return res.json();
+} catch(error){
+    throw Error("Failed to fech post")
+}
+
+})
+
+
+const postsSlice = createSlice({
+    name:"fetchPost",
+    initialState,
+    reducers:{},
+   extraReducers:(builder)=>{
+    builder
+    .addCase(fetchPost.pending,(state,action)=>{
+        state.status="loading"
+    })
+.addCase(fetchPost.fulfilled,(state,action)=>{
+    state.status = "succeeded",
+    state.posts = action.payload
+})
+.addCase(fetchPost.rejected, (state, action)=>{
+    state.status = "failed",
+     state.error = action.error
+})
+   }
+})
+
+export default postsSlice.reducer
+
+
+export const getPosts = (state)=> state.fetchPost.posts;
+export const getError = (state) => state.fetchPost.error;
+export const getStatus = (state)=> state.fetchPost.status;
+
+```
+At first, we have defined initial state.
+
+```
+const initialState = {
+posts:null,
+status:"idel",
+error:null
+
+}
+
+```
+Then, we used `createAsyncThunk` to handle async action where we have fetched data from URL
+
+```
+const BASE_URL = "https://www.pblog.online/api/pmadhav279@gmail.com";
+
+export const fetchPost = createAsyncThunk("fetch/post", async ()=>{
+try{
+const res = await fetch(BASE_URL);
+if(!res.ok) throw Error("Failed to fetch post");
+return res.json();
+} catch(error){
+    throw Error("Failed to fech post")
+}
+
+})
+```
+
+We created `postsSlice` by using `createSlice` where we handle `pending`, `fulfilled` and `rejected` action return from `createAsyncThunk` by using `extraReducers`
+
+```
+const postsSlice = createSlice({
+    name:"fetchPost",
+    initialState,
+    reducers:{},
+   extraReducers:(builder)=>{
+    builder
+    .addCase(fetchPost.pending,(state,action)=>{
+        state.status="loading"
+    })
+.addCase(fetchPost.fulfilled,(state,action)=>{
+    state.status = "succeeded",
+    state.posts = action.payload
+})
+.addCase(fetchPost.rejected, (state, action)=>{
+    state.status = "failed",
+     state.error = action.error
+})
+   }
+})
+```
+
+finally, we exported `postsSlice.reducer` and differnt state of our `fetchPost` that includes `status`, `posts` and `error`.
+
+```
+
+export default postsSlice.reducer
+export const getPosts = (state)=> state.fetchPost.posts;
+export const getError = (state) => state.fetchPost.error;
+export const getStatus = (state)=> state.fetchPost.status;
+
+```
+
+Now, create a file `FetchPost.jsx` inside save folder. `FetchPost.jsx` will have following code:
+
+```
+import { useEffect } from "react";
+import {useSelector, useDispatch} from "react-redux";
+import { Button, Card } from "react-bootstrap";
+import { getPosts, getError, getStatus, fetchPost } from "./fetchPostSlice";
+const FetchPost = ()=>{
+const dispatch = useDispatch();
+
+const posts = useSelector(getPosts);
+const status = useSelector(getStatus);
+const error = useSelector(getError);
+
+useEffect(()=>{
+dispatch(fetchPost());
+
+},[dispatch])
+
+    return<>
+    {status === "loading" && <p>Loading....</p>}
+    {status === "failed" && error.message}
+
+
+{status === "succeeded" && posts.map((post, index)=>{
+    return <Card className=" p-1 m-2" >
+        <Card.Title>
+            {post.title}
+        </Card.Title>
+    </Card>
+})}
+    
+    
+    
+    </>
+}
+
+export default FetchPost;
+```
+Here, we have extracted `posts`, `status` and `error` by using `useSelector()` hook and we have dispatch `fetchPost()` inside `useEffect()` hook
+
+```
+const FetchPost = ()=>{
+const dispatch = useDispatch();
+
+const posts = useSelector(getPosts);
+const status = useSelector(getStatus);
+const error = useSelector(getError);
+
+useEffect(()=>{
+dispatch(fetchPost());
+
+},[dispatch])
+```
+ And, based on status we have showed UI component.
+
+ 
+
 ## Conclusion
 We have learned a basic about react-redux and redux toolkit. I would like to mentioned some key notes from official [redux](https://redux-toolkit.js.org/) website  at the end.
 - `configureStore` accepts a `reducer` function as a named argument
