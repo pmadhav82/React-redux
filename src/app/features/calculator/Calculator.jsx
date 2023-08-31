@@ -1,7 +1,7 @@
 import Button from "./Button";
 import Operation from "./Operation";
 import  "./calculator.css";
-import { getCurrentOperant, clear, getOperation, getPreviousOperant} from "./calculatorSlice";
+import { getCurrentOperant, clear, getOperation, getPreviousOperant, calculate} from "./calculatorSlice";
 import { useSelector, useDispatch } from "react-redux";
 const Calculator = ()=>{
 const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const operation = useSelector(getOperation);
 
 <Button digit="."/>
 <Button digit="0" />
-<button className="span-two">=</button>
+<button className="span-two" onClick={()=>dispatch(calculate())}>=</button>
 
    </div>
     </>

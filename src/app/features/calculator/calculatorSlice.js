@@ -21,8 +21,11 @@ compution = preValue - currentValue;
 break
 case("*"):
 compution = preValue * currentValue;
-   
-    
+  break
+  case("÷"):
+  if(currentValue ==0) return compution = "can not devide by zero";
+  compution = preValue / currentValue; 
+ 
 }
 return compution.toString();
 
@@ -61,6 +64,18 @@ state.operation = action.payload;
 state.currentOperant = null;
 return state;
     },
+    calculate:(state)=>{
+if(state.currentOperant == null ||
+    state.previousOperant == null||
+    state.operation == null) return state;
+
+
+    state.currentOperant = evaluate(state);
+    state.operation = null;
+    state.previousOperant = null;
+    return state;
+
+    },
     clear:(state)=>{
 state = initialState;
 return state;
@@ -68,7 +83,7 @@ return state;
 }
 })
 
-export const {addDigit, clear, chooseOperation} = calculatorSlice.actions;
+export const {addDigit, clear, chooseOperation, calculate} = calculatorSlice.actions;
 export default calculatorSlice.reducer;
 
 export const getCurrentOperant = (state)=>state.calculator.currentOperant;
