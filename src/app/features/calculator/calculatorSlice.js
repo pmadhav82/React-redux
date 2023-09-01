@@ -36,9 +36,17 @@ name:"calculator",
 initialState,
 reducers:{
     addDigit:(state,action)=>{
+
         if(state.currentOperant ==="0" && action.payload ==="0")return state;
         
         if(state.currentOperant?.includes(".") && action.payload === ".") return state;
+
+        if(state.overwrite == true) {
+            state.currentOperant = action.payload;
+            state.overwrite = false;
+            return state;
+            
+        }
 
         state.currentOperant= `${state.currentOperant || ""}${action.payload}`;
         return state;
@@ -73,8 +81,26 @@ if(state.currentOperant == null ||
     state.currentOperant = evaluate(state);
     state.operation = null;
     state.previousOperant = null;
+    state.overwrite = true;
     return state;
 
+    },
+    deleteDigit:(state)=>{
+if(state.overwrite){
+    state.currentOperant = null;
+    state.overwrite = false;
+    return state;
+}
+
+if(state.currentOperant == null)return state;
+
+if(state.currentOperant.length === 1) {
+    state.currentOperant = null;
+    return state
+}
+
+state.currentOperant = state.currentOperant.slice(0,-1)
+return state;
     },
     clear:(state)=>{
 state = initialState;
@@ -83,7 +109,7 @@ return state;
 }
 })
 
-export const {addDigit, clear, chooseOperation, calculate} = calculatorSlice.actions;
+export const {addDigit, clear, chooseOperation, calculate, deleteDigit} = calculatorSlice.actions;
 export default calculatorSlice.reducer;
 
 export const getCurrentOperant = (state)=>state.calculator.currentOperant;

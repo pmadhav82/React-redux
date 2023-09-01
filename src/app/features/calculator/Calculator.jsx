@@ -1,7 +1,7 @@
 import Button from "./Button";
 import Operation from "./Operation";
 import  "./calculator.css";
-import { getCurrentOperant, clear, getOperation, getPreviousOperant, calculate} from "./calculatorSlice";
+import { getCurrentOperant, clear, getOperation, getPreviousOperant, calculate, deleteDigit} from "./calculatorSlice";
 import { useSelector, useDispatch } from "react-redux";
 const Calculator = ()=>{
 const dispatch = useDispatch();
@@ -11,16 +11,25 @@ const currentOperant = useSelector(getCurrentOperant);
 const operation = useSelector(getOperation);
 
 
+const formatNumber = (number)=>{
+  let numberFormat =   new Intl.NumberFormat();
+  if(number == null)return
+
+  const [integer, decimal] = number.split(".");
+  if(decimal == null) return numberFormat.format(number);
+  return `${numberFormat.format(integer)}.${decimal}`;
+}
+
     return<>
    <div className="calculator-grid">
     <div className="output">
 
     <div className="previous-operant">{previousOperant}{operation}</div>
-    <div className="current-operant">{currentOperant}</div>
+    <div className="current-operant">{formatNumber(currentOperant)}</div>
 
     </div>
   <button className="span-two" onClick={()=>dispatch(clear())} >AC</button>
-  <button >DEL</button>
+  <button  onClick={()=>dispatch(deleteDigit())}>DEL</button>
 <Operation operation = "÷"/>
 
 <Button  digit="1"/>
