@@ -20,11 +20,11 @@ dispatch(fetchPost());
 
 
 {status === "succeeded" && posts.map((post, index)=>{
-    return <Card className=" p-1 m-2" >
-        <Card.Title>
+    return <p className=" p-1 m-2" >
+        
             {post.title}
-        </Card.Title>
-    </Card>
+      
+    </p>
 })}
     
     

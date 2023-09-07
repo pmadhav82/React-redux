@@ -349,6 +349,11 @@ dispatch(fetchPost());
  And, based on status we have showed UI component.
 
  
+## RTK Query
+As per official [redux](https://redux-toolkit.js.org/) website, RTK Query is a powerfull data fetching and catching tool. It is designed to simplify common cases for loading data in a web application, which elimates the hand-write data fetching and catching login.
+
+
+
 
 ## Conclusion
 We have learned a basic about react-redux and redux toolkit. I would like to mentioned some key notes from official [redux](https://redux-toolkit.js.org/) website  at the end.

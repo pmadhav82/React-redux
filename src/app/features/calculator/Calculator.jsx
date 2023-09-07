@@ -1,3 +1,4 @@
+import HomePage from "../../HomePage";
 import Button from "./Button";
 import Operation from "./Operation";
 import  "./calculator.css";
@@ -55,6 +56,7 @@ const formatNumber = (number)=>{
 <button className="span-two" onClick={()=>dispatch(calculate())}>=</button>
 
    </div>
+
     </>
 }
 export default Calculator;
