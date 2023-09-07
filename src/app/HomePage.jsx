@@ -45,7 +45,7 @@ const HomePage = ()=> {
   <Card style={{ width: '18rem',margin: "0 1rem" }}>
     
     <Card.Body>
-      <Card.Title> Fetch Post </Card.Title>
+      <Card.Title> Fetch Post Using RTK Query </Card.Title>
     
       <Button variant="primary">
         <Link className='nav-link' to="/fetch-post">Fetch Post</Link>
@@ -53,6 +53,17 @@ const HomePage = ()=> {
     </Card.Body>
   </Card>
 
+
+  <Card style={{ width: '18rem',margin: "0 1rem" }}>
+    
+    <Card.Body>
+      <Card.Title> Fetch Post createAsyncThunk </Card.Title>
+    
+      <Button variant="primary">
+        <Link className='nav-link' to="/fetch-post-asyncThunk">Fetch Post</Link>
+        </Button>
+    </Card.Body>
+  </Card>
     </>
   }
   

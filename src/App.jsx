@@ -14,7 +14,7 @@ function App() {
   
 
   return (
-<> <Container className='d-flex m-2 justify-content-center'>
+<> <Container className='d-flex m-2 justify-content-center flex-column align-items-center gap-2'>
 
 <Routes>
   <Route path='/' element = {<HomePage/>}/>
@@ -22,6 +22,7 @@ function App() {
 <Route path='/todo-app' element = {<Todo/>}/>
 <Route path='/counter-app' element = {<Counter/>}/>
 <Route path='/fetch-post' element = {<PostList/>}/>
+<Route path='/fetch-post-asyncThunk' element = {<FetchPost/>}/>
 </Routes>
 
 </Container>
