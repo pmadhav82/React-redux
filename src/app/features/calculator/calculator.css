@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: repeat(4,6rem);
     grid-template-rows: minmax(7rem, auto) repeat(5,6rem);
+    background: blue;
 }
 
 .span-two{

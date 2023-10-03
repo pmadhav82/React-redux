@@ -9,6 +9,7 @@ import Calculator from './app/features/calculator/Calculator';
 import { Route, Routes, Link } from 'react-router-dom';
 import PostList from './app/features/postList/PostList';
 import HomePage from './app/HomePage';
+import CommentUI from './app/features/nastedComment/CommentUI';
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
 <Route path='/counter-app' element = {<Counter/>}/>
 <Route path='/fetch-post' element = {<PostList/>}/>
 <Route path='/fetch-post-asyncThunk' element = {<FetchPost/>}/>
+<Route path='/comment' element = {<CommentUI/>} />
 </Routes>
 
 </Container>

@@ -19,6 +19,7 @@ editTodo: (state, action)=>{
     let taskToEdit = state.todo.find((todo)=>{
         return todo.id === action.payload.id;
     })
+    
      taskToEdit.task = action.payload.task;
      return state;
 }

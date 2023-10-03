@@ -6,6 +6,20 @@ const HomePage = ()=> {
     return <>
     
 
+
+    <Card style={{ width: '18rem',margin: "0 1rem" }}>
+    
+    <Card.Body>
+      <Card.Title> Neasted Comment System </Card.Title>
+    
+      <Button variant="primary">
+        <Link className='nav-link' to="/comment">Nested Comment</Link>
+        </Button>
+    </Card.Body>
+  </Card>
+
+
+
       <Card style={{ width: '18rem' }}>
     
         <Card.Body>
