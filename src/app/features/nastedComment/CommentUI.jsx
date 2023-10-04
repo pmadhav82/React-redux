@@ -31,7 +31,7 @@ setComment("");
 }
 
     return <>
-    <Card  className="w-50">
+    <Card style={{width:"360px"}}>
       <Card.Header>
        Nested Comment
       </Card.Header>

@@ -10,14 +10,41 @@ const insertReply = (commentTree, parentId, replyObj) =>{
         comment.children.length > 0 && insertReply(comment.children, parentId, replyObj)
         
     }
+    
     return commentTree
     
     }
 
 
-const saveToLocalStorage = (state) =>{
-    return localStorage.setItem("comments", JSON.stringify(state))
-}
+
+
+
+    
+    const saveToLocalStorage = (state) =>{
+        return localStorage.setItem("comments", JSON.stringify(state))
+    }
+    
+  
+
+    const deleteReply = (commentTree,id) =>{
+
+        for(let comment of commentTree){
+            if(comment.children.length > 0){
+                comment.children = comment.children.filter((cmt)=>{
+cmt.id !== id
+
+cmt.children.length >0 && deleteReply(cmt.children, id)
+                })
+            }
+            return saveToLocalStorage(commentTree)
+        }
+        
+    
+        
+        }
+
+
+
 
 
 
@@ -38,15 +65,21 @@ editComment: (state, action)=>{
 
 },
 deleteComment: (state, action) =>{
-
+state = state.filter((cmt)=> cmt.id !== action.payload)
+saveToLocalStorage(state);
+return state
+  
+},
+replyDelete: (state, action) =>{
+ deleteReply(state, action.payload)
 },
 
  addNewReply:(state, action) =>{
     const { parentId, replyObj} = action.payload
 
  insertReply(state, parentId, replyObj)
- saveToLocalStorage(state)
- return state
+  return saveToLocalStorage(state)
+ 
     
     }
     
@@ -54,6 +87,6 @@ deleteComment: (state, action) =>{
     }
 })
 
-export const {addComment, editComment, deleteComment, addNewReply} = commentSlice.actions
+export const {addComment, deleteComment, addNewReply, replyDelete} = commentSlice.actions
 export const getComments = (state)=> state.comment
 export default commentSlice.reducer

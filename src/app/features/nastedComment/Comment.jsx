@@ -1,10 +1,20 @@
 
 import { Button } from "react-bootstrap";
 import AddReply from "./Addreply";
-const Comment = ({comment}) =>{
+import { useDispatch } from "react-redux";
+import { deleteComment, replyDelete } from "./commentSlice";
 
+const Comment = ({comment, deleteReply}) =>{
+const dispatch = useDispatch()
 
+const deleteHandeler = (id)=>{
+    if(deleteReply){
+dispatch(replyDelete(id))
+    }else{
 
+        dispatch(deleteComment(id))
+    }
+}
 
     return<> 
 
@@ -15,7 +25,7 @@ const Comment = ({comment}) =>{
 <div>
 <div style={{display:"flex", gap:".2rem"}}>
 <AddReply id={comment.id}  key={comment.id}/>
-<Button variant="secondary" size="sm">Delete</Button>
+<Button variant="secondary" size="sm" onClick={()=> deleteHandeler(comment.id)}>Delete</Button>
 
 </div>
 </div>
@@ -27,7 +37,7 @@ const Comment = ({comment}) =>{
     
 {comment.children?.length>0 && comment.children.map((reply)=>{
     return <div style = {{marginLeft:"40px", marginTop:".2rem"}}>
-    <Comment comment={reply} key={reply.id} />
+    <Comment deleteReply={replyDelete}  comment={reply} key={reply.id} />
     </div> 
 
     })

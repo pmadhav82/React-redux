@@ -15,7 +15,7 @@ function App() {
   
 
   return (
-<> <Container className='d-flex m-2 justify-content-center flex-column align-items-center gap-2'>
+<> <Container className='d-flex m-2 justify-content-center flex-wrap align-items-center gap-2'>
 
 <Routes>
   <Route path='/' element = {<HomePage/>}/>

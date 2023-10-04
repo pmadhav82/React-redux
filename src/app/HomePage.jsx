@@ -7,11 +7,13 @@ const HomePage = ()=> {
     
 
 
-    <Card style={{ width: '18rem',margin: "0 1rem" }}>
+    <Card style={{ minWidth: '20rem',margin: "0 1rem" }}>
     
     <Card.Body>
       <Card.Title> Neasted Comment System </Card.Title>
-    
+    <Card.Body>
+      Nested comment using local storage 
+    </Card.Body>
       <Button variant="primary">
         <Link className='nav-link' to="/comment">Nested Comment</Link>
         </Button>
