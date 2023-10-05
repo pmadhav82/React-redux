@@ -37,7 +37,7 @@ const insertReply = (commentTree, parentId, replyObj) =>{
             
         }
         
-        return saveToLocalStorage(commentTree)
+
         
         }
     
@@ -60,23 +60,25 @@ export const commentSlice = createSlice({
 addComment: (state, action) =>{
  
         state.unshift(action.payload)
-saveToLocalStorage(state)
-        return state;
-    
+ saveToLocalStorage(state)
+        
+    return state
 },  
 
-editComment: (state, action)=>{
 
-},
-deleteComment: (state, action) =>{
-state = state.filter((cmt)=> cmt.id !== action.payload)
-saveToLocalStorage(state);
-return state
-  
-},
-replyDelete: (state, action) =>{
+deleteComment : (state, action) =>{
+    
     let {parentId, commentId} = action.payload
- deleteReply(state, parentId, commentId)
+    if(!parentId){
+         state = state.filter((cmt)=> cmt.id !== commentId)
+    }else{
+
+        deleteReply(state, parentId, commentId)
+    }
+
+    saveToLocalStorage(state)
+  return state  
+  
 },
 
  addNewReply:(state, action) =>{
@@ -84,8 +86,8 @@ replyDelete: (state, action) =>{
 
 
  insertReply(state, parentId, replyObj)
-  return saveToLocalStorage(state)
- 
+  saveToLocalStorage(state)
+ return state
     
     }
     
@@ -93,6 +95,6 @@ replyDelete: (state, action) =>{
     }
 })
 
-export const {addComment, deleteComment, addNewReply, replyDelete} = commentSlice.actions
+export const {addComment, deleteComment, addNewReply} = commentSlice.actions
 export const getComments = (state)=> state.comment
 export default commentSlice.reducer
