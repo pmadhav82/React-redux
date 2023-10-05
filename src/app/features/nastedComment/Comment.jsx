@@ -7,12 +7,14 @@ import { deleteComment, replyDelete } from "./commentSlice";
 const Comment = ({comment, deleteReply}) =>{
 const dispatch = useDispatch()
 
-const deleteHandeler = (id)=>{
-    if(deleteReply){
-dispatch(replyDelete(id))
-    }else{
+const deleteHandeler = ({parentId, commentId})=>{
 
-        dispatch(deleteComment(id))
+
+    if(deleteReply){
+dispatch(replyDelete({parentId, commentId}))
+ }else{
+
+        dispatch(deleteComment(commentId))
     }
 }
 
@@ -25,7 +27,8 @@ dispatch(replyDelete(id))
 <div>
 <div style={{display:"flex", gap:".2rem"}}>
 <AddReply id={comment.id}  key={comment.id}/>
-<Button variant="secondary" size="sm" onClick={()=> deleteHandeler(comment.id)}>Delete</Button>
+<Button variant="secondary" size="sm" onClick={()=> deleteHandeler({parentId:comment.parentId, commentId:comment.id
+})}>Delete</Button>
 
 </div>
 </div>

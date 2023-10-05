@@ -26,22 +26,26 @@ const insertReply = (commentTree, parentId, replyObj) =>{
     
   
 
-    const deleteReply = (commentTree,id) =>{
+    const deleteReply = (commentTree,parentId, commentId) =>{
+
 
         for(let comment of commentTree){
-            if(comment.children.length > 0){
-                comment.children = comment.children.filter((cmt)=>{
-cmt.id !== id
-
-cmt.children.length >0 && deleteReply(cmt.children, id)
-                })
+            if(comment.id === parentId){
+                comment.children = comment.children.filter(cmt=> cmt.id !== commentId)
             }
-            return saveToLocalStorage(commentTree)
+            comment.children.length > 0 && deleteReply(comment.children, parentId, commentId)
+            
         }
+        
+        return saveToLocalStorage(commentTree)
+        
+        }
+    
+    
         
     
         
-        }
+
 
 
 
@@ -71,11 +75,13 @@ return state
   
 },
 replyDelete: (state, action) =>{
- deleteReply(state, action.payload)
+    let {parentId, commentId} = action.payload
+ deleteReply(state, parentId, commentId)
 },
 
  addNewReply:(state, action) =>{
     const { parentId, replyObj} = action.payload
+
 
  insertReply(state, parentId, replyObj)
   return saveToLocalStorage(state)

@@ -21,7 +21,8 @@ const addReply = ()=>{
   let replyObj = {
     id : new Date().getTime().toString(),
 text:reply,
-children:[]
+children:[],
+parentId:id
 }
 
 dispatch(addNewReply({parentId:id, replyObj}))

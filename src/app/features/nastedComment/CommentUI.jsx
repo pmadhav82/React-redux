@@ -22,6 +22,7 @@ if(!comment) return
     id: new Date().getTime().toString(),
     text: comment,
     children:[],
+    parentId:null
 
 }
 dispatch(addComment(commentObject))
